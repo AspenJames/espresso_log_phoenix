@@ -19,6 +19,6 @@ defmodule EspressoLog.Coffees.Espresso do
   def changeset(espresso, attrs) do
     espresso
     |> cast(attrs, [:dose, :yield, :time, :notes, :coffee_id, :user_id])
-    |> validate_required([:dose, :yield, :time, :notes, :coffee_id, :user_id])
+    |> validate_required([:dose, :yield, :time, :coffee_id, :user_id])
   end
 end

@@ -15,7 +15,7 @@ defmodule EspressoLog.Coffees.Coffee do
   @doc false
   def changeset(coffee, attrs) do
     coffee
-    |> cast(attrs, [:name])
-    |> validate_required([:name])
+    |> cast(attrs, [:name, :cafe_id])
+    |> validate_required([:name, :cafe_id])
   end
 end
