@@ -13,6 +13,9 @@ defmodule EspressoLog.Accounts.User do
     field :password, :string, virtual: true
     field :password_confirmation, :string, virtual: true
 
+    has_many :espressos, EspressoLog.Coffees.Espresso
+    many_to_many :cafes, EspressoLog.Accounts.Cafe, join_through: :cafe_users
+
     timestamps()
   end
 

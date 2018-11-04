@@ -197,4 +197,100 @@ defmodule EspressoLog.Accounts do
   def change_cafe(%Cafe{} = cafe) do
     Cafe.changeset(cafe, %{})
   end
+
+  alias EspressoLog.Accounts.Cafe_user
+
+  @doc """
+  Returns the list of cafe_users.
+
+  ## Examples
+
+      iex> list_cafe_users()
+      [%Cafe_user{}, ...]
+
+  """
+  def list_cafe_users do
+    Repo.all(Cafe_user)
+  end
+
+  @doc """
+  Gets a single cafe_user.
+
+  Raises `Ecto.NoResultsError` if the Cafe user does not exist.
+
+  ## Examples
+
+      iex> get_cafe_user!(123)
+      %Cafe_user{}
+
+      iex> get_cafe_user!(456)
+      ** (Ecto.NoResultsError)
+
+  """
+  def get_cafe_user!(id), do: Repo.get!(Cafe_user, id)
+
+  @doc """
+  Creates a cafe_user.
+
+  ## Examples
+
+      iex> create_cafe_user(%{field: value})
+      {:ok, %Cafe_user{}}
+
+      iex> create_cafe_user(%{field: bad_value})
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def create_cafe_user(attrs \\ %{}) do
+    %Cafe_user{}
+    |> Cafe_user.changeset(attrs)
+    |> Repo.insert()
+  end
+
+  @doc """
+  Updates a cafe_user.
+
+  ## Examples
+
+      iex> update_cafe_user(cafe_user, %{field: new_value})
+      {:ok, %Cafe_user{}}
+
+      iex> update_cafe_user(cafe_user, %{field: bad_value})
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def update_cafe_user(%Cafe_user{} = cafe_user, attrs) do
+    cafe_user
+    |> Cafe_user.changeset(attrs)
+    |> Repo.update()
+  end
+
+  @doc """
+  Deletes a Cafe_user.
+
+  ## Examples
+
+      iex> delete_cafe_user(cafe_user)
+      {:ok, %Cafe_user{}}
+
+      iex> delete_cafe_user(cafe_user)
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def delete_cafe_user(%Cafe_user{} = cafe_user) do
+    Repo.delete(cafe_user)
+  end
+
+  @doc """
+  Returns an `%Ecto.Changeset{}` for tracking cafe_user changes.
+
+  ## Examples
+
+      iex> change_cafe_user(cafe_user)
+      %Ecto.Changeset{source: %Cafe_user{}}
+
+  """
+  def change_cafe_user(%Cafe_user{} = cafe_user) do
+    Cafe_user.changeset(cafe_user, %{})
+  end
 end

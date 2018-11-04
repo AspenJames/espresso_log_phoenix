@@ -128,4 +128,66 @@ defmodule EspressoLog.AccountsTest do
       assert %Ecto.Changeset{} = Accounts.change_cafe(cafe)
     end
   end
+
+  describe "cafe_users" do
+    alias EspressoLog.Accounts.Cafe_user
+
+    @valid_attrs %{cafe_id: 42, user_id: 42}
+    @update_attrs %{cafe_id: 43, user_id: 43}
+    @invalid_attrs %{cafe_id: nil, user_id: nil}
+
+    def cafe_user_fixture(attrs \\ %{}) do
+      {:ok, cafe_user} =
+        attrs
+        |> Enum.into(@valid_attrs)
+        |> Accounts.create_cafe_user()
+
+      cafe_user
+    end
+
+    test "list_cafe_users/0 returns all cafe_users" do
+      cafe_user = cafe_user_fixture()
+      assert Accounts.list_cafe_users() == [cafe_user]
+    end
+
+    test "get_cafe_user!/1 returns the cafe_user with given id" do
+      cafe_user = cafe_user_fixture()
+      assert Accounts.get_cafe_user!(cafe_user.id) == cafe_user
+    end
+
+    test "create_cafe_user/1 with valid data creates a cafe_user" do
+      assert {:ok, %Cafe_user{} = cafe_user} = Accounts.create_cafe_user(@valid_attrs)
+      assert cafe_user.cafe_id == 42
+      assert cafe_user.user_id == 42
+    end
+
+    test "create_cafe_user/1 with invalid data returns error changeset" do
+      assert {:error, %Ecto.Changeset{}} = Accounts.create_cafe_user(@invalid_attrs)
+    end
+
+    test "update_cafe_user/2 with valid data updates the cafe_user" do
+      cafe_user = cafe_user_fixture()
+      assert {:ok, cafe_user} = Accounts.update_cafe_user(cafe_user, @update_attrs)
+      assert %Cafe_user{} = cafe_user
+      assert cafe_user.cafe_id == 43
+      assert cafe_user.user_id == 43
+    end
+
+    test "update_cafe_user/2 with invalid data returns error changeset" do
+      cafe_user = cafe_user_fixture()
+      assert {:error, %Ecto.Changeset{}} = Accounts.update_cafe_user(cafe_user, @invalid_attrs)
+      assert cafe_user == Accounts.get_cafe_user!(cafe_user.id)
+    end
+
+    test "delete_cafe_user/1 deletes the cafe_user" do
+      cafe_user = cafe_user_fixture()
+      assert {:ok, %Cafe_user{}} = Accounts.delete_cafe_user(cafe_user)
+      assert_raise Ecto.NoResultsError, fn -> Accounts.get_cafe_user!(cafe_user.id) end
+    end
+
+    test "change_cafe_user/1 returns a cafe_user changeset" do
+      cafe_user = cafe_user_fixture()
+      assert %Ecto.Changeset{} = Accounts.change_cafe_user(cafe_user)
+    end
+  end
 end

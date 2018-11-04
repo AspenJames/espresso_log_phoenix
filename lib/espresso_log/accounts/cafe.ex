@@ -8,6 +8,7 @@ defmodule EspressoLog.Accounts.Cafe do
     field :name, :string
 
     has_many :coffees, EspressoLog.Coffees.Coffee
+    many_to_many :users, EspressoLog.Accounts.User, join_through: :cafe_users
 
     timestamps()
   end

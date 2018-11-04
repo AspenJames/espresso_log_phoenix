@@ -7,6 +7,7 @@ defmodule EspressoLog.Coffees.Coffee do
     field :name, :string
 
     belongs_to :cafe, EspressoLog.Accounts.Cafe
+    has_many :espressos, EspressoLog.Coffees.Espresso
 
     timestamps()
   end

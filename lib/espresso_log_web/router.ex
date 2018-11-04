@@ -22,5 +22,7 @@ defmodule EspressoLogWeb.Router do
         resources "/espressos", EspressoController
       end
     end
+
+    resources "/cafe_users", Cafe_userController
   end
 end
