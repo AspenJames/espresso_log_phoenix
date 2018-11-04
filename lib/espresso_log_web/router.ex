@@ -13,14 +13,9 @@ defmodule EspressoLogWeb.Router do
     plug :accepts, ["json"]
   end
 
-  scope "/", EspressoLogWeb do
-    pipe_through :browser # Use the default browser stack
+  scope "/api/v1", EspressoLogWeb do
+    pipe_through :api
 
-    get "/", PageController, :index
+    resources "/users", UserController, except: [:index]
   end
-
-  # Other scopes may use custom stacks.
-  # scope "/api", EspressoLogWeb do
-  #   pipe_through :api
-  # end
 end
