@@ -62,4 +62,74 @@ defmodule EspressoLog.CoffeesTest do
       assert %Ecto.Changeset{} = Coffees.change_coffee(coffee)
     end
   end
+
+  describe "espressos" do
+    alias EspressoLog.Coffees.Espresso
+
+    @valid_attrs %{coffee_id: 42, dose: 42, notes: "some notes", time: 42, user_id: 42, yield: 42}
+    @update_attrs %{coffee_id: 43, dose: 43, notes: "some updated notes", time: 43, user_id: 43, yield: 43}
+    @invalid_attrs %{coffee_id: nil, dose: nil, notes: nil, time: nil, user_id: nil, yield: nil}
+
+    def espresso_fixture(attrs \\ %{}) do
+      {:ok, espresso} =
+        attrs
+        |> Enum.into(@valid_attrs)
+        |> Coffees.create_espresso()
+
+      espresso
+    end
+
+    test "list_espressos/0 returns all espressos" do
+      espresso = espresso_fixture()
+      assert Coffees.list_espressos() == [espresso]
+    end
+
+    test "get_espresso!/1 returns the espresso with given id" do
+      espresso = espresso_fixture()
+      assert Coffees.get_espresso!(espresso.id) == espresso
+    end
+
+    test "create_espresso/1 with valid data creates a espresso" do
+      assert {:ok, %Espresso{} = espresso} = Coffees.create_espresso(@valid_attrs)
+      assert espresso.coffee_id == 42
+      assert espresso.dose == 42
+      assert espresso.notes == "some notes"
+      assert espresso.time == 42
+      assert espresso.user_id == 42
+      assert espresso.yield == 42
+    end
+
+    test "create_espresso/1 with invalid data returns error changeset" do
+      assert {:error, %Ecto.Changeset{}} = Coffees.create_espresso(@invalid_attrs)
+    end
+
+    test "update_espresso/2 with valid data updates the espresso" do
+      espresso = espresso_fixture()
+      assert {:ok, espresso} = Coffees.update_espresso(espresso, @update_attrs)
+      assert %Espresso{} = espresso
+      assert espresso.coffee_id == 43
+      assert espresso.dose == 43
+      assert espresso.notes == "some updated notes"
+      assert espresso.time == 43
+      assert espresso.user_id == 43
+      assert espresso.yield == 43
+    end
+
+    test "update_espresso/2 with invalid data returns error changeset" do
+      espresso = espresso_fixture()
+      assert {:error, %Ecto.Changeset{}} = Coffees.update_espresso(espresso, @invalid_attrs)
+      assert espresso == Coffees.get_espresso!(espresso.id)
+    end
+
+    test "delete_espresso/1 deletes the espresso" do
+      espresso = espresso_fixture()
+      assert {:ok, %Espresso{}} = Coffees.delete_espresso(espresso)
+      assert_raise Ecto.NoResultsError, fn -> Coffees.get_espresso!(espresso.id) end
+    end
+
+    test "change_espresso/1 returns a espresso changeset" do
+      espresso = espresso_fixture()
+      assert %Ecto.Changeset{} = Coffees.change_espresso(espresso)
+    end
+  end
 end

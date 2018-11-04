@@ -18,7 +18,9 @@ defmodule EspressoLogWeb.Router do
 
     resources "/users", UserController, except: [:index]
     resources "/cafes", CafeController do 
-      resources "/coffees", CoffeeController
+      resources "/coffees", CoffeeController do 
+        resources "/espressos", EspressoController
+      end
     end
   end
 end
