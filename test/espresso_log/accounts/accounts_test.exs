@@ -66,4 +66,66 @@ defmodule EspressoLog.AccountsTest do
       assert %Ecto.Changeset{} = Accounts.change_user(user)
     end
   end
+
+  describe "cafes" do
+    alias EspressoLog.Accounts.Cafe
+
+    @valid_attrs %{address: "some address", name: "some name"}
+    @update_attrs %{address: "some updated address", name: "some updated name"}
+    @invalid_attrs %{address: nil, name: nil}
+
+    def cafe_fixture(attrs \\ %{}) do
+      {:ok, cafe} =
+        attrs
+        |> Enum.into(@valid_attrs)
+        |> Accounts.create_cafe()
+
+      cafe
+    end
+
+    test "list_cafes/0 returns all cafes" do
+      cafe = cafe_fixture()
+      assert Accounts.list_cafes() == [cafe]
+    end
+
+    test "get_cafe!/1 returns the cafe with given id" do
+      cafe = cafe_fixture()
+      assert Accounts.get_cafe!(cafe.id) == cafe
+    end
+
+    test "create_cafe/1 with valid data creates a cafe" do
+      assert {:ok, %Cafe{} = cafe} = Accounts.create_cafe(@valid_attrs)
+      assert cafe.address == "some address"
+      assert cafe.name == "some name"
+    end
+
+    test "create_cafe/1 with invalid data returns error changeset" do
+      assert {:error, %Ecto.Changeset{}} = Accounts.create_cafe(@invalid_attrs)
+    end
+
+    test "update_cafe/2 with valid data updates the cafe" do
+      cafe = cafe_fixture()
+      assert {:ok, cafe} = Accounts.update_cafe(cafe, @update_attrs)
+      assert %Cafe{} = cafe
+      assert cafe.address == "some updated address"
+      assert cafe.name == "some updated name"
+    end
+
+    test "update_cafe/2 with invalid data returns error changeset" do
+      cafe = cafe_fixture()
+      assert {:error, %Ecto.Changeset{}} = Accounts.update_cafe(cafe, @invalid_attrs)
+      assert cafe == Accounts.get_cafe!(cafe.id)
+    end
+
+    test "delete_cafe/1 deletes the cafe" do
+      cafe = cafe_fixture()
+      assert {:ok, %Cafe{}} = Accounts.delete_cafe(cafe)
+      assert_raise Ecto.NoResultsError, fn -> Accounts.get_cafe!(cafe.id) end
+    end
+
+    test "change_cafe/1 returns a cafe changeset" do
+      cafe = cafe_fixture()
+      assert %Ecto.Changeset{} = Accounts.change_cafe(cafe)
+    end
+  end
 end

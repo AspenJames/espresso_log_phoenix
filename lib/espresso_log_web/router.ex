@@ -17,5 +17,8 @@ defmodule EspressoLogWeb.Router do
     pipe_through :api
 
     resources "/users", UserController, except: [:index]
+    resources "/cafes", CafeController do 
+      resources "/coffees", CoffeeController
+    end
   end
 end
