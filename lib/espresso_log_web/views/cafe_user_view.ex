@@ -12,6 +12,8 @@ defmodule EspressoLogWeb.Cafe_userView do
 
   def render("cafe_user.json", %{cafe_user: cafe_user}) do
     %{id: cafe_user.id,
+      admin: cafe_user.admin,
+      approved: cafe_user.approved,
       user_id: cafe_user.user_id,
       cafe_id: cafe_user.cafe_id}
   end
