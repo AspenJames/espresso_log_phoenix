@@ -8,6 +8,7 @@ defmodule EspressoLog.Coffees.Espresso do
     field :notes, :string
     field :time, :integer
     field :yield, :integer
+    field :days_off_roast, :integer
 
     belongs_to :coffee, EspressoLog.Coffees.Coffee
     belongs_to :user, EspressoLog.Accounts.User
@@ -18,7 +19,7 @@ defmodule EspressoLog.Coffees.Espresso do
   @doc false
   def changeset(espresso, attrs) do
     espresso
-    |> cast(attrs, [:dose, :yield, :time, :notes, :coffee_id, :user_id])
-    |> validate_required([:dose, :yield, :time, :coffee_id, :user_id])
+    |> cast(attrs, [:dose, :yield, :time, :notes, :days_off_roast, :coffee_id, :user_id])
+    |> validate_required([:dose, :yield, :time, :days_off_roast, :coffee_id, :user_id])
   end
 end

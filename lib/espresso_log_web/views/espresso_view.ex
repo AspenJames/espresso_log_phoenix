@@ -16,6 +16,7 @@ defmodule EspressoLogWeb.EspressoView do
       yield: espresso.yield,
       time: espresso.time,
       notes: espresso.notes,
+      days_off_roast: espresso.days_off_roast,
       coffee_id: espresso.coffee_id,
       user_id: espresso.user_id}
   end

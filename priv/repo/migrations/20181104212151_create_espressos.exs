@@ -7,6 +7,7 @@ defmodule EspressoLog.Repo.Migrations.CreateEspressos do
       add :yield, :integer
       add :time, :integer
       add :notes, :string
+      add :days_off_roast, :integer
       add :coffee_id, references(:coffees)
       add :user_id, references(:users)
 
