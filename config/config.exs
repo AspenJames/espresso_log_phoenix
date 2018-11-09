@@ -22,6 +22,18 @@ config :logger, :console,
   format: "$time $metadata[$level] $message\n",
   metadata: [:user_id]
 
+# Configures Guardian
+config :espresso_log, EspressoLog.TokenImpl,
+  issuer: "EspressoLog",
+  ttl: {1, :days},
+  token_ttl: %{
+    "refresh" => {30, :days},
+    "access" => {1, :days}
+  },
+  verify_issuer: true,
+  secret_key: System.get_env("GUARDIAN_KEY"),
+  serializer: Guardian.TestGuardianSerializer
+
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.
 import_config "#{Mix.env}.exs"

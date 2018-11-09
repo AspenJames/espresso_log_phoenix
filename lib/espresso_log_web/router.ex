@@ -16,6 +16,8 @@ defmodule EspressoLogWeb.Router do
   scope "/api/v1", EspressoLogWeb do
     pipe_through :api
 
+    post "/login", SessionController, :create 
+
     resources "/users", UserController, except: [:index]
     resources "/cafes", CafeController do 
       resources "/coffees", CoffeeController do 
