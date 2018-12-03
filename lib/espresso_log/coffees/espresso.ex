@@ -2,6 +2,10 @@ defmodule EspressoLog.Coffees.Espresso do
   use Ecto.Schema
   import Ecto.Changeset
 
+  @derive {Poison.Encoder, only: [
+    :dose, :notes, :time, :yield, :days_off_roast
+    ]}
+
 
   schema "espressos" do
     field :dose, :integer
