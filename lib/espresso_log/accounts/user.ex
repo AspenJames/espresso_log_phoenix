@@ -4,9 +4,7 @@ defmodule EspressoLog.Accounts.User do
 
   import Comeonin.Bcrypt, only: [hashpwsalt: 1]
 
-  @derive {Poison.Encoder, only: [:name]}
-
-
+  @derive {Poison.Encoder, only: [:name, :id, :email]}
   schema "users" do
     field :email, :string
     field :name, :string
