@@ -2,6 +2,7 @@ defmodule EspressoLog.TokenImpl do
   use Guardian, otp_app: :espresso_log
 
   alias EspressoLog.Accounts.User
+  alias EspressoLog.Repo
 
   def subject_for_token(%User{} = user, _claims) do
     {:ok, "User:#{user.id}"}
