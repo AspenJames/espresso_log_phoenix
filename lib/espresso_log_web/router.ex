@@ -11,6 +11,7 @@ defmodule EspressoLogWeb.Router do
 
   pipeline :api do
     plug :accepts, ["json"]
+    plug EspressoLogWeb.Plugs.SetUser
   end
 
   scope "/api/v1", EspressoLogWeb do
