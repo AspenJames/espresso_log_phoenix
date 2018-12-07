@@ -3,6 +3,7 @@ defmodule EspressoLogWeb.UserController do
 
   alias EspressoLog.Accounts
   alias EspressoLog.Accounts.User
+  alias EspressoLog.Repo
 
   action_fallback EspressoLogWeb.FallbackController
 

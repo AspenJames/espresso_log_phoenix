@@ -3,6 +3,7 @@ defmodule EspressoLogWeb.CafeController do
 
   alias EspressoLog.Accounts
   alias EspressoLog.Accounts.Cafe
+  alias EspressoLog.Repo
 
   action_fallback EspressoLogWeb.FallbackController
 
@@ -11,18 +12,25 @@ defmodule EspressoLogWeb.CafeController do
     render(conn, "index.json", cafes: cafes)
   end
 
-  def create(conn, %{"cafe" => cafe_params}) do
-    cafe = %Cafe{}
-      |> Cafe.changeset(cafe_params)
-      |> Repo.insert()
+  def user_cafes(conn, %{"id" => id}) do
+    user = Accounts.get_user!(id)
+           |> Repo.preload(:cafes)
+    render(conn, "index.json", cafes: user.cafes)
+  end
 
-    IO.inspect cafe
-    # with {:ok, %Cafe{} = cafe} <- Accounts.create_cafe(cafe_params) do
-    #   conn
-    #   |> put_status(:created)
-    #   |> put_resp_header("location", cafe_path(conn, :show, cafe))
-    #   |> render("show.json", cafe: cafe)
-    # end
+  def create(conn, %{"cafe" => cafe_params}) do
+    case %Cafe{}
+      |> Cafe.changeset(cafe_params)
+      |> Repo.insert() do
+        {:ok, cafe} ->
+          conn
+            |> put_status(:created)
+            |> render("show.json", cafe: cafe)
+        {:error, changeset} ->
+          conn
+            |> put_status(:unprocessable_entity)
+            |> render("error.json", changeset: changeset)
+    end
   end
 
   def show(conn, %{"id" => id}) do

@@ -27,6 +27,8 @@ defmodule EspressoLogWeb.Router do
       end
     end
 
+    get "/users/:id/cafes", CafeController, :user_cafes
+
     resources "/cafe_users", Cafe_userController
   end
 end
