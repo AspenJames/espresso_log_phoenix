@@ -2,7 +2,7 @@ defmodule EspressoLogWeb.CafeController do
   use EspressoLogWeb, :controller
 
   alias EspressoLog.Accounts
-  alias EspressoLog.Accounts.Cafe
+  alias EspressoLog.Accounts.{Cafe, Cafe_user}
   alias EspressoLog.Repo
 
   action_fallback EspressoLogWeb.FallbackController
@@ -23,6 +23,13 @@ defmodule EspressoLogWeb.CafeController do
       |> Cafe.changeset(cafe_params)
       |> Repo.insert() do
         {:ok, cafe} ->
+          %Cafe_user{
+            user_id: conn.assigns.user.id,
+            cafe_id: cafe.id,
+            admin: true,
+            approved: true
+          } |> Repo.insert!()
+
           conn
             |> put_status(:created)
             |> render("show.json", cafe: cafe)
