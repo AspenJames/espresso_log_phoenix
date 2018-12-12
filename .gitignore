@@ -31,3 +31,6 @@ npm-debug.log
 
 # Notes
 /NOTES.md
+
+# Vim swapfiles
+*.swp
