@@ -4,8 +4,8 @@ defmodule EspressoLog.Accounts.Cafe_user do
 
 
   schema "cafe_users" do
-    field :admin, :boolean
-    field :approved, :boolean
+    field :admin, :boolean, default: false
+    field :approved, :boolean, default: false
 
     belongs_to :cafe, EspressoLog.Accounts.Cafe
     belongs_to :user, EspressoLog.Accounts.User
