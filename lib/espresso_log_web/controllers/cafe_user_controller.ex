@@ -11,7 +11,8 @@ defmodule EspressoLogWeb.Cafe_userController do
     render(conn, "index.json", cafe_users: cafe_users)
   end
 
-  def create(conn, %{"cafe_user" => cafe_user_params}) do
+  def create(conn, %{"cafeId" => cafe_id}) do
+    cafe_user_params = %{cafe_id: cafe_id, user_id: conn.assigns.user.id}
     with {:ok, %Cafe_user{} = cafe_user} <- Accounts.create_cafe_user(cafe_user_params) do
       conn
       |> put_status(:created)
