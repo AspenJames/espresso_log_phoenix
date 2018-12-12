@@ -2,6 +2,7 @@ defmodule EspressoLog.Accounts.Cafe_user do
   use Ecto.Schema
   import Ecto.Changeset
 
+  @derive {Poison.Encoder, only: [:user_id, :cafe_id, :admin, :approved]}
 
   schema "cafe_users" do
     field :admin, :boolean, default: false

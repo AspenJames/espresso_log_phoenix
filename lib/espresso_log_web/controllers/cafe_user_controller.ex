@@ -1,13 +1,23 @@
 defmodule EspressoLogWeb.Cafe_userController do
   use EspressoLogWeb, :controller
 
+  import Ecto.Query, only: [from: 2]
+
   alias EspressoLog.Accounts
+  alias EspressoLog.Repo
   alias EspressoLog.Accounts.Cafe_user
 
   action_fallback EspressoLogWeb.FallbackController
 
   def index(conn, _params) do
     cafe_users = Accounts.list_cafe_users()
+    render(conn, "index.json", cafe_users: cafe_users)
+  end
+
+  def cafe_users(conn, %{"id" => user_id}) do
+    query = from c in Cafe_user,
+              where: c.user_id == ^user_id
+    cafe_users = Repo.all(query)
     render(conn, "index.json", cafe_users: cafe_users)
   end
 
